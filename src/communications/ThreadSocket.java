@@ -12,6 +12,7 @@ public class ThreadSocket extends Thread {
 	private DataInputStream input;
 	private DataOutputStream output;
 	private boolean stop;
+	private Player player;
 	private Server server;
 
 	public ThreadSocket(Socket socket, Server server) throws IOException {
@@ -32,15 +33,35 @@ public class ThreadSocket extends Thread {
 					manageRequest(request);
 				}
 			} catch (IOException e) {
-				e.printStackTrace();
+				Server.LOGGER.log(Level.INFO, "El cliente: " + connection.getInetAddress().getHostAddress() + " se desconectó");
+				stop = true;
 			}
 		}
 	}
 
-	private void manageRequest(String request) throws IOException {
-		
+	private void manageRequest(String petition) throws IOException {
+		switch (Petitions.valueOf(petition)) {
+		case C_CREATE_CLIENT:
+			createClient();
+			break;
+
+		default:
+			break;
+		}
 	}
 	
+	private void createClient() {
+		try {
+			int id = input.readInt();
+			String name = input.readUTF();
+			int x = input.readInt();
+			int y = input.readInt();
+			Server.LOGGER.log(Level.INFO, "El cliente: " + connection.getInetAddress().getHostAddress() + " se registro como jugador");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
 	public Socket getConnection() {
 		return connection;
 	}
