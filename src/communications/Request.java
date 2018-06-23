@@ -1,6 +1,6 @@
 package communications;
 
-public enum Petitions {
+public enum Request {
 
 	C_CREATE_CLIENT
 	

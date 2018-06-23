@@ -17,4 +17,27 @@ public class Util {
 		}
 	}
 	
+	public static int[] getPositionByNumPlayers(int numPlayers) {
+		int[] pos = new int[2];
+		switch (numPlayers) {
+		case 0:
+			pos[0] = 70;
+			pos[1] = 50;
+			break;
+		case 1:
+			pos[0] = 1500;
+			pos[1] = 50;
+			break;
+		case 2:
+			pos[0] = 70;
+			pos[1] = 800;
+			break;
+		case 3:
+			pos[0] = 1500;
+			pos[1] = 800;
+			break;
+		}
+		return pos;
+	}
+	
 }
